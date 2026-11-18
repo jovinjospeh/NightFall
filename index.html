@@ -7,11 +7,22 @@
 <style>
 :root{--bg:#080d0b;--panel:#101916;--panel2:#14211b;--line:#263a30;--green:#9cff72;--muted:#91a59a;--white:#e8f2eb;--amber:#d9b66d}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% 0%,#17251c 0,transparent 45%),var(--bg);color:var(--white);font:14px/1.5 system-ui,Segoe UI,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer;background:#1b2b22;color:var(--green);border:1px solid #3b5a45;border-radius:5px;padding:9px 13px}button:hover{background:#294331}button:disabled{opacity:.5;cursor:not-allowed}.top{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#080e0bdc;position:sticky;top:0;z-index:20;backdrop-filter:blur(10px)}.brand{font-weight:900;letter-spacing:4px;font-size:21px}.brand small{display:block;font-size:9px;letter-spacing:3px;color:var(--muted);font-weight:600}.status{color:var(--green);font-size:11px;letter-spacing:2px}.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 66px)}aside{border-right:1px solid var(--line);padding:20px 12px;background:#0b120e}.nav{width:100%;text-align:left;margin:4px 0;background:transparent;border-color:transparent;color:#b7c8bd}.nav.active{background:#1a2b20;border-color:#35523e;color:var(--green)}.nav span{display:inline-block;width:27px;color:var(--green)}.sidefoot{position:sticky;top:90vh;color:#64796c;font-size:10px;padding:20px 10px;letter-spacing:1px}.main{padding:22px;max-width:1500px;width:100%;margin:auto}.view{display:none}.view.active{display:block}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase}.heading{font-size:25px;letter-spacing:2px;margin:3px 0 16px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.panel{background:linear-gradient(145deg,#142019,#0d1511);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}.panel h3{margin:0 0 12px;font-size:12px;letter-spacing:2px;color:#c6d7cb}.stat{font-size:27px;color:var(--green);font-weight:700}.muted{color:var(--muted)}.small{font-size:11px}.span3{grid-column:span 3}.span4{grid-column:span 4}.span5{grid-column:span 5}.span6{grid-column:span 6}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.split{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{font-size:10px;border:1px solid #3c5844;color:var(--green);padding:3px 7px;border-radius:3px}.mission{padding:12px 0;border-bottom:1px solid var(--line)}.mission:last-child{border:0}.mission p{margin:4px 0;color:var(--muted)}#map{height:520px;border-radius:6px;border:1px solid var(--line);z-index:1}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#101b14;color:#e8f2eb}.leaflet-popup-content a{color:#a8ff7f}.leaflet-container{background:#111a15}.feed{height:290px;overflow:auto;background:#080e0b;border:1px solid var(--line);padding:12px;border-radius:5px}.msg{margin:0 0 13px}.msg b{color:var(--green)}.msg time{font-size:10px;color:#728579}.field{width:100%;background:#08100c;border:1px solid #304438;color:white;border-radius:5px;padding:10px;margin:5px 0 10px}.chatline{display:flex;gap:7px}.chatline input{flex:1}.camera{width:100%;background:#030805;min-height:250px;max-height:520px;object-fit:contain;border:1px solid var(--line);border-radius:6px}.preview{position:relative}.scan{pointer-events:none;position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#8dff7310 4px 5px);mix-blend-mode:screen}.greenfx{filter:grayscale(1) sepia(1) hue-rotate(55deg) saturate(5) contrast(1.2) brightness(.85)}canvas{max-width:100%;height:auto}.photo-wrap{position:relative;display:inline-block;max-width:100%;touch-action: none}.photo-wrap img{display:block;max-width:100%;max-height:520px}.mask{position:absolute;background:#050505;border:1px solid #333;cursor:move;min-width:32px;min-height:22px}.notice{border-left:3px solid var(--amber);padding:9px 12px;background:#1d1a11;color:#d8c89f;font-size:12px}.footer{color:#65796d;font-size:10px;text-align:center;padding:30px}.hide{display:none!important}
 @media(max-width:850px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;padding:8px;position:sticky;top:66px;z-index:10}.nav{white-space:nowrap;width:auto;margin:0 3px;padding:9px}.nav span{width:auto;margin-right:5px}.sidefoot{display:none}.main{padding:14px}.span3,.span4,.span5,.span6,.span7,.span8{grid-column:span 12}.top{padding:0 14px}.status{font-size:9px}#map{height:420px}}
+
+#authGate{position:fixed;inset:0;z-index:1000;background:#070c09;display:grid;place-items:center;padding:18px}
+.authbox{width:min(460px,100%);background:#101916;border:1px solid #35513d;border-radius:10px;padding:24px;box-shadow:0 20px 80px #0009}
+.authbox h1{letter-spacing:4px;color:#a8ff7f;margin:0}.authbox .field{margin:6px 0 12px}.authbox button{margin:4px 4px 4px 0}
+#appShell{display:none}#teamBar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
 </style>
 </head>
 <body>
+<div id="authGate"><div class="authbox"><div class="eyebrow">INCO / SECURE WORKSPACE</div><h1>NIGHTFALL</h1><p class="muted">Sign in or create an account to access your team's shared workspace.</p>
+<label class="small muted" for="authEmail">Email</label><input id="authEmail" class="field" type="email" autocomplete="email" placeholder="you@example.com">
+<label class="small muted" for="authPassword">Password</label><input id="authPassword" class="field" type="password" autocomplete="current-password" placeholder="Password">
+<div class="row"><button id="signInBtn">Log in</button><button id="signUpBtn">Register</button></div><p id="authStatus" class="small muted">Backend setup required: add your Supabase project URL and publishable key in the configuration section of index.html.</p></div></div>
+<div id="appShell">
+
 <header class="top"><div class="brand">NIGHTFALL <small>INCO // FICTIONAL OPERATIONS NETWORK</small></div><div class="status">● SYSTEM ONLINE &nbsp; <span id="clock"></span></div></header>
-<div class="layout"><aside>
+<div id="teamBar" style="padding:12px 22px 0"><span class="tag" id="teamLabel">NO TEAM SELECTED</span><input id="teamName" class="field" style="max-width:190px;margin:0" placeholder="New team name"><button id="createTeamBtn">Create team</button><input id="inviteCode" class="field" style="max-width:150px;margin:0" placeholder="Invite code"><button id="joinTeamBtn">Join team</button><button id="copyInviteBtn">Copy invite code</button><button id="logoutBtn">Log out</button></div><div class="layout"><aside>
 <button class="nav active" data-view="home"><span>▦</span> Overview</button>
 <button class="nav" data-view="mapview"><span>⌖</span> Operations Map</button>
 <button class="nav" data-view="missions"><span>▤</span> Mission Control</button>
@@ -32,20 +43,20 @@
 <section id="agents" class="view"><div class="eyebrow">Personnel directory / 07</div><div class="heading">AGENT ROSTER</div><div class="grid"><div class="panel span4"><h3>ADD AGENT</h3><label class="small muted">Full name</label><input class="field" id="agentName" placeholder="Enter agent name"><label class="small muted">Callsign</label><input class="field" id="agentCall" placeholder="Enter callsign"><label class="small muted">Role / team</label><input class="field" id="agentRole" placeholder="Enter role or team"><button id="saveAgent">＋ Add agent</button></div><div class="panel span8"><div class="split"><h3>YOUR AGENTS</h3><span class="tag">SAVED IN THIS BROWSER</span></div><div id="agentList"><p class="muted">No agents added yet.</p></div></div></div></section>
 <div class="footer">NIGHTFALL // MADE BY INCO · FICTIONAL SIMULATION · NOT AN OFFICIAL GOVERNMENT OR INTELLIGENCE SERVICE</div>
 </main></div>
+</div><!-- appShell -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
 <script>
 const $=id=>document.getElementById(id);$('clock').textContent=new Date().toLocaleTimeString();
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
 document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.view).classList.add('active');if(b.dataset.view==='mapview'&&!window.mapReady)initMap()}));
 const missions=[];
-function renderMissions(){document.getElementById('missionCount').textContent=missions.length;const html=missions.map((m,i)=>'<div class="mission"><div class="split"><b>'+esc(m.name)+'</b><span class="tag">'+m.status+'</span></div><p>'+esc(m.desc)+'</p><button data-complete="'+i+'">'+(m.status==='COMPLETE'?'Completed':'Mark complete')+'</button></div>').join('');$('missionList').innerHTML=html;$('homeMissions').innerHTML=missions.slice(0,3).map(m=>'<div class="mission"><b>'+esc(m.name)+'</b><p>'+esc(m.desc)+'</p><span class="tag">'+m.status+'</span></div>').join('');$('openCount').textContent=missions.filter(m=>m.status!=='COMPLETE').length;document.querySelectorAll('[data-complete]').forEach(b=>b.onclick=()=>{missions[+b.dataset.complete].status='COMPLETE';renderMissions()})}
+function renderMissions(){document.getElementById('missionCount').textContent=missions.length;const html=missions.map((m,i)=>'<div class="mission"><div class="split"><b>'+esc(m.name)+'</b><span class="tag">'+m.status+'</span></div><p>'+esc(m.desc)+'</p><button data-complete="'+i+'">'+(m.status==='COMPLETE'?'Completed':'Mark complete')+'</button></div>').join('');$('missionList').innerHTML=html;$('homeMissions').innerHTML=missions.slice(0,3).map(m=>'<div class="mission"><b>'+esc(m.name)+'</b><p>'+esc(m.desc)+'</p><span class="tag">'+m.status+'</span></div>').join('');$('openCount').textContent=missions.filter(m=>m.status!=='COMPLETE').length;document.querySelectorAll('[data-complete]').forEach(b=>b.onclick=()=>{missions[+b.dataset.complete].status='COMPLETE';renderMissions();nfSaveWorkspace()})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-renderMissions();$('addMission').onclick=()=>{let n=$('newMission').value.trim(),d=$('newObjective').value.trim();if(!n||!d)return alert('Add a title and objective first.');missions.push({name:n.toUpperCase(),desc:d,status:'OPEN'});$('newMission').value='';$('newObjective').value='';renderMissions()};
+renderMissions();$('addMission').onclick=()=>{let n=$('newMission').value.trim(),d=$('newObjective').value.trim();if(!n||!d)return alert('Add a title and objective first.');missions.push({name:n.toUpperCase(),desc:d,status:'OPEN'});nfSaveWorkspace();$('newMission').value='';$('newObjective').value='';renderMissions()};
 $('chatForm').onsubmit=e=>{e.preventDefault();let v=$('chatInput').value.trim();if(!v)return;let d=document.createElement('div');d.className='msg';d.innerHTML='<b>JOV-01</b> <time>'+new Date().toLocaleTimeString()+'</time><div></div>';d.querySelector('div').textContent=v;$('chatFeed').append(d);$('chatInput').value='';$('chatFeed').scrollTop=$('chatFeed').scrollHeight};
 let mapReady=false,map;
 function initMap(){if(mapReady)return;mapReady=true;map=L.map('map').setView([10.5276,76.2144],9);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
-const places=[{n:'Thrissur',c:[10.5276,76.2144],d:'Demo briefing: cultural and civic information hub.'},{n:'Kochi',c:[9.9312,76.2673],d:'Demo briefing: coastal city and public infrastructure.'},{n:'Palakkad',c:[10.7867,76.6548],d:'Demo briefing: gateway region and local headlines.'},{n:'Kozhikode',c:[11.2588,75.7804],d:'Demo briefing: port-city history and public updates.'},{n:'Bengaluru',c:[12.9716,77.5946],d:'Demo briefing: technology and city development.'}];
-places.forEach(p=>L.marker(p.c).addTo(map).bindPopup('<b>'+p.n+'</b><p>'+p.d+'</p><a target="_blank" rel="noopener" href="https://news.google.com/search?q='+encodeURIComponent(p.n+' news')+'">Open latest news ↗</a>'));setTimeout(()=>map.invalidateSize(),150)}
+setTimeout(()=>map.invalidateSize(),150)}
 $('locate').onclick=()=>{if(!navigator.geolocation)return alert('Location is unavailable in this browser.');navigator.geolocation.getCurrentPosition(p=>{let c=[p.coords.latitude,p.coords.longitude];map.setView(c,12);L.circleMarker(c,{radius:8,color:'#a8ff7f'}).addTo(map).bindPopup('Your location (shown only in this session)').openPopup()},()=>alert('Location permission was not granted.'))};
 let stream=null;$('startCam').onclick=async()=>{try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});$('video').srcObject=stream;$('camStatus').textContent='Camera active. Green effect is simulated.'}catch(e){$('camStatus').textContent='Could not start camera: '+e.message}};$('stopCam').onclick=()=>{if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;$('video').srcObject=null;$('camStatus').textContent='Camera stopped.'};$('toggleFx').onchange=e=>$('video').classList.toggle('greenfx',e.target.checked);
 $('snapCam').onclick=()=>{let v=$('video');if(!v.videoWidth)return alert('Enable the camera first.');let c=$('camCanvas');c.width=v.videoWidth;c.height=v.videoHeight;let x=c.getContext('2d');x.drawImage(v,0,0);if($('toggleFx').checked){let im=x.getImageData(0,0,c.width,c.height);for(let i=0;i<im.data.length;i+=4){let l=(im.data[i]*.3+im.data[i+1]*.59+im.data[i+2]*.11);im.data[i]=l*.28;im.data[i+1]=Math.min(255,l*1.25);im.data[i+2]=l*.2}x.putImageData(im,0,0)}$('capture').src=c.toDataURL('image/png');$('capture').classList.remove('hide');$('captureLink').href=$('capture').src;$('captureLink').classList.remove('hide')};
@@ -85,15 +96,87 @@ function initMap(){
  document.getElementById('map').insertAdjacentHTML('beforebegin','<div class="notice" style="margin:8px 0">Use the map drawing tools to add markers, lines, rectangles or polygons. Give each mark a name and notes. Your marks save in this browser.</div>');
  setTimeout(()=>nightfallMap.invalidateSize(),180);
 }
-function saveAreas(){const out=[];drawnAreas.eachLayer(l=>{let g=l.toGeoJSON();g.properties={...(g.properties||{}),label:l.feature?.properties?.label||l.options?.title||'Map mark',notes:l.feature?.properties?.notes||''};out.push(g)});writeStore(areaStoreKey,out)}
+function saveAreas(){const out=[];drawnAreas.eachLayer(l=>{let g=l.toGeoJSON();g.properties={...(g.properties||{}),label:l.feature?.properties?.label||l.options?.title||'Map mark',notes:l.feature?.properties?.notes||''};out.push(g)});writeStore(areaStoreKey,out);nfSaveWorkspace()}
 function renderAgents(){const list=readStore(agentStoreKey);document.getElementById('agentCount').textContent=list.length;const host=document.getElementById('agentList');if(!list.length){host.innerHTML='<p class="muted">No agents added yet. Use the form to add your first record.</p>';return}
 host.innerHTML=list.map((a,i)=>'<div class="mission"><div class="split"><b>'+esc(a.name)+'</b><span class="tag">'+esc(a.callsign||'NO CALLSIGN')+'</span></div><p>'+esc(a.role||'No role specified')+'</p><div class="row"><button data-edit-agent="'+i+'">Edit</button><button data-delete-agent="'+i+'">Delete</button></div></div>').join('');
-host.querySelectorAll('[data-delete-agent]').forEach(b=>b.onclick=()=>{if(confirm('Delete this agent record?')){let x=readStore(agentStoreKey);x.splice(+b.dataset.deleteAgent,1);writeStore(agentStoreKey,x);renderAgents()}});
-host.querySelectorAll('[data-edit-agent]').forEach(b=>b.onclick=()=>{let i=+b.dataset.editAgent,x=readStore(agentStoreKey),a=x[i];let name=prompt('Agent name:',a.name);if(name===null)return;let callsign=prompt('Callsign:',a.callsign)||'';let role=prompt('Role / team:',a.role)||'';x[i]={name:name.trim(),callsign:callsign.trim(),role:role.trim()};writeStore(agentStoreKey,x);renderAgents()});
+host.querySelectorAll('[data-delete-agent]').forEach(b=>b.onclick=()=>{if(confirm('Delete this agent record?')){let x=readStore(agentStoreKey);x.splice(+b.dataset.deleteAgent,1);writeStore(agentStoreKey,x);renderAgents();nfSaveWorkspace()}});
+host.querySelectorAll('[data-edit-agent]').forEach(b=>b.onclick=()=>{let i=+b.dataset.editAgent,x=readStore(agentStoreKey),a=x[i];let name=prompt('Agent name:',a.name);if(name===null)return;let callsign=prompt('Callsign:',a.callsign)||'';let role=prompt('Role / team:',a.role)||'';x[i]={name:name.trim(),callsign:callsign.trim(),role:role.trim()};writeStore(agentStoreKey,x);renderAgents();nfSaveWorkspace()});
 }
-document.getElementById('saveAgent').onclick=()=>{let name=document.getElementById('agentName').value.trim(),callsign=document.getElementById('agentCall').value.trim(),role=document.getElementById('agentRole').value.trim();if(!name){alert('Enter an agent name.');return}let x=readStore(agentStoreKey);x.push({name,callsign,role});writeStore(agentStoreKey,x);['agentName','agentCall','agentRole'].forEach(id=>document.getElementById(id).value='');renderAgents()};
+document.getElementById('saveAgent').onclick=()=>{let name=document.getElementById('agentName').value.trim(),callsign=document.getElementById('agentCall').value.trim(),role=document.getElementById('agentRole').value.trim();if(!name){alert('Enter an agent name.');return}let x=readStore(agentStoreKey);x.push({name,callsign,role});writeStore(agentStoreKey,x);nfSaveWorkspace();['agentName','agentCall','agentRole'].forEach(id=>document.getElementById(id).value='');renderAgents()};
 renderAgents();
 // Replace the original demo map initializer when the map tab is first opened.
 document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='mapview'&&!window.nightfallMap)initMap()}));
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// NIGHTFALL AUTH + SHARED TEAM WORKSPACE
+// Add the Supabase Project URL and publishable/anon key below. Never put a service_role key here.
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_PUBLIC_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+let nfClient = null, nfUser = null, nfTeam = null;
+const nfStatus = (msg)=>{ const el=document.getElementById('authStatus'); if(el)el.textContent=msg; };
+function nfReady(){return window.supabase && SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PASTE_') && !SUPABASE_PUBLIC_KEY.includes('PASTE_');}
+async function nfInit(){
+ if(!nfReady()){nfStatus('Setup needed: configure SUPABASE_URL and SUPABASE_PUBLIC_KEY in index.html, then run supabase_setup.sql in your Supabase SQL Editor.');return;}
+ nfClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+ const {data:{session}}=await nfClient.auth.getSession();
+ if(session) await nfEnter(session.user);
+}
+async function nfEnter(user){
+ nfUser=user; document.getElementById('authGate').style.display='none';document.getElementById('appShell').style.display='block';
+ await nfLoadTeams();
+}
+document.getElementById('signInBtn').onclick=async()=>{
+ if(!nfReady())return nfStatus('Add your Supabase URL and public key first.');
+ nfClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+ const {data,error}=await nfClient.auth.signInWithPassword({email:document.getElementById('authEmail').value.trim(),password:document.getElementById('authPassword').value});
+ nfStatus(error?error.message:'Logged in. Loading workspace…');if(data.user)await nfEnter(data.user);
+};
+document.getElementById('signUpBtn').onclick=async()=>{
+ if(!nfReady())return nfStatus('Add your Supabase URL and public key first.');
+ nfClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+ const {data,error}=await nfClient.auth.signUp({email:document.getElementById('authEmail').value.trim(),password:document.getElementById('authPassword').value});
+ nfStatus(error?error.message:(data.session?'Account created.':'Check your email to confirm registration, then log in.'));
+ if(data.session&&data.user)await nfEnter(data.user);
+};
+async function nfLoadTeams(){
+ const {data,error}=await nfClient.from('team_members').select('team_id, role, teams(id,name,invite_code)').eq('user_id',nfUser.id);
+ if(error){alert('Could not load teams: '+error.message);return;}
+ const teams=(data||[]).map(x=>x.teams).filter(Boolean);
+ if(teams.length){nfTeam=teams[0];document.getElementById('teamLabel').textContent=nfTeam.name.toUpperCase();await nfLoadWorkspace();}
+ else {nfTeam=null;document.getElementById('teamLabel').textContent='NO TEAM — CREATE OR JOIN ONE';}
+}
+document.getElementById('createTeamBtn').onclick=async()=>{
+ if(!nfClient||!nfUser)return alert('Log in first.');
+ const name=document.getElementById('teamName').value.trim();if(!name)return alert('Enter a team name.');
+ const {data,error}=await nfClient.rpc('nightfall_create_team',{p_name:name});
+ if(error)return alert(error.message);nfTeam=data;document.getElementById('teamLabel').textContent=nfTeam.name.toUpperCase();alert('Team created. Invite code: '+nfTeam.invite_code);await nfLoadWorkspace();
+};
+document.getElementById('joinTeamBtn').onclick=async()=>{
+ if(!nfClient||!nfUser)return alert('Log in first.');
+ const code=document.getElementById('inviteCode').value.trim().toUpperCase();if(!code)return alert('Enter an invite code.');
+ const {data,error}=await nfClient.rpc('nightfall_join_team',{p_code:code});
+ if(error)return alert(error.message);nfTeam=data;document.getElementById('teamLabel').textContent=nfTeam.name.toUpperCase();alert('Joined '+nfTeam.name);await nfLoadWorkspace();
+};
+document.getElementById('copyInviteBtn').onclick=()=>{if(!nfTeam)return alert('Create or join a team first.');navigator.clipboard.writeText(nfTeam.invite_code).then(()=>alert('Invite code copied: '+nfTeam.invite_code)).catch(()=>alert('Invite code: '+nfTeam.invite_code));};
+document.getElementById('logoutBtn').onclick=async()=>{if(nfClient)await nfClient.auth.signOut();location.reload();};
+async function nfLoadWorkspace(){
+ if(!nfTeam)return;
+ const {data,error}=await nfClient.from('team_workspace').select('data').eq('team_id',nfTeam.id).maybeSingle();
+ if(error){alert('Workspace load failed: '+error.message);return;}
+ const d=data?.data||{};
+ if(d.agents){localStorage.setItem(agentStoreKey,JSON.stringify(d.agents));if(typeof renderAgents==='function')renderAgents();}
+ if(d.areas){localStorage.setItem(areaStoreKey,JSON.stringify(d.areas));if(drawnAreas){drawnAreas.clearLayers();d.areas.forEach(g=>L.geoJSON(g,{onEachFeature:(f,l)=>{l.bindPopup('<b>'+esc(f.properties?.label||'Map mark')+'</b>');drawnAreas.addLayer(l)}}));}}
+ if(d.missions&&Array.isArray(d.missions)){missions.splice(0,missions.length,...d.missions);renderMissions();}
+}
+async function nfSaveWorkspace(){
+ if(!nfClient||!nfTeam||!nfUser)return;
+ const data={agents:readStore(agentStoreKey),areas:readStore(areaStoreKey),missions:missions};
+ const {error}=await nfClient.from('team_workspace').upsert({team_id:nfTeam.id,data,updated_by:nfUser.id},{onConflict:'team_id'});
+ if(error)console.error('Nightfall workspace sync failed:',error.message);
+}
+</script>
+
+<script>nfInit();</script>
 </body></html>
