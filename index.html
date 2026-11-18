@@ -163,6 +163,9 @@ document.getElementById('copyInviteBtn').onclick=()=>{if(!nfTeam)return alert('C
 document.getElementById('logoutBtn').onclick=async()=>{if(nfClient)await nfClient.auth.signOut();location.reload();};
 async function nfLoadWorkspace(){
  if(!nfTeam)return;
+ await nfLoadChat();
+ if(nfChatChannel)nfClient.removeChannel(nfChatChannel);
+ nfChatChannel=nfClient.channel('nightfall-chat-'+nfTeam.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'chat_messages',filter:'team_id=eq.'+nfTeam.id},payload=>nfRenderChatMessage(payload.new)).subscribe();
  const {data,error}=await nfClient.from('team_workspace').select('data').eq('team_id',nfTeam.id).maybeSingle();
  if(error){alert('Workspace load failed: '+error.message);return;}
  const d=data?.data||{};
@@ -170,6 +173,23 @@ async function nfLoadWorkspace(){
  if(d.areas){localStorage.setItem(areaStoreKey,JSON.stringify(d.areas));if(drawnAreas){drawnAreas.clearLayers();d.areas.forEach(g=>L.geoJSON(g,{onEachFeature:(f,l)=>{l.bindPopup('<b>'+esc(f.properties?.label||'Map mark')+'</b>');drawnAreas.addLayer(l)}}));}}
  if(d.missions&&Array.isArray(d.missions)){missions.splice(0,missions.length,...d.missions);renderMissions();}
 }
+
+let nfChatChannel=null, nfSeenMessages=new Set();
+function nfRenderChatMessage(m){
+ if(nfSeenMessages.has(m.id))return;nfSeenMessages.add(m.id);
+ const d=document.createElement('div');d.className='msg';const b=document.createElement('b');b.textContent=m.sender_label||'TEAM MEMBER';const t=document.createElement('time');t.textContent=' '+new Date(m.created_at).toLocaleTimeString();const body=document.createElement('div');body.textContent=m.content;d.append(b,t,body);$('chatFeed').append(d);$('chatFeed').scrollTop=$('chatFeed').scrollHeight;
+}
+async function nfLoadChat(){
+ nfSeenMessages.clear();$('chatFeed').innerHTML='';
+ const {data,error}=await nfClient.from('chat_messages').select('*').eq('team_id',nfTeam.id).order('created_at',{ascending:true}).limit(100);
+ if(error){$('chatFeed').textContent='Chat unavailable: '+error.message;return;}
+ (data||[]).forEach(nfRenderChatMessage);
+}
+$('chatForm').onsubmit=async e=>{
+ e.preventDefault();const content=$('chatInput').value.trim();if(!content||!nfClient||!nfTeam)return;
+ const {error}=await nfClient.from('chat_messages').insert({team_id:nfTeam.id,sender_id:nfUser.id,sender_label:nfUser.email||'TEAM MEMBER',content});
+ if(error)alert('Message not sent: '+error.message);else $('chatInput').value='';
+};
 async function nfSaveWorkspace(){
  if(!nfClient||!nfTeam||!nfUser)return;
  const data={agents:readStore(agentStoreKey),areas:readStore(areaStoreKey),missions:missions};
