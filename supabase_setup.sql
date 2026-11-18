@@ -62,3 +62,19 @@ grant execute on function public.nightfall_create_team(text) to authenticated;
 grant execute on function public.nightfall_join_team(text) to authenticated;
 grant select on public.teams,public.team_members,public.team_workspace to authenticated;
 grant insert,update on public.team_workspace to authenticated;
+
+-- Shared team chat
+create table if not exists public.chat_messages (
+ id uuid primary key default gen_random_uuid(),
+ team_id uuid not null references public.teams(id) on delete cascade,
+ sender_id uuid not null references auth.users(id) on delete cascade,
+ sender_label text not null,
+ content text not null check (char_length(content) between 1 and 3000),
+ created_at timestamptz not null default now()
+);
+alter table public.chat_messages enable row level security;
+drop policy if exists "team members read chat" on public.chat_messages;
+create policy "team members read chat" on public.chat_messages for select to authenticated using (public.nightfall_is_member(team_id));
+drop policy if exists "team members send chat" on public.chat_messages;
+create policy "team members send chat" on public.chat_messages for insert to authenticated with check (public.nightfall_is_member(team_id) and sender_id=auth.uid());
+grant select,insert on public.chat_messages to authenticated;
