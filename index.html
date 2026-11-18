@@ -112,8 +112,8 @@ document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{if(
 <script>
 // NIGHTFALL AUTH + SHARED TEAM WORKSPACE
 // Add the Supabase Project URL and publishable/anon key below. Never put a service_role key here.
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_PUBLIC_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const SUPABASE_URL = "https://oxogfkkczjdudpqqujcx.supabase.co";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_PZQX9ydUBsCpTe-Uv_yR8Q_f6l5F4Z8";
 let nfClient = null, nfUser = null, nfTeam = null;
 const nfStatus = (msg)=>{ const el=document.getElementById('authStatus'); if(el)el.textContent=msg; };
 function nfReady(){return window.supabase && SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PASTE_') && !SUPABASE_PUBLIC_KEY.includes('PASTE_');}
