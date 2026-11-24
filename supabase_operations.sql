@@ -176,6 +176,13 @@ grant execute on function public.nightfall_is_operation_admin(uuid) to authentic
 grant execute on function public.nightfall_create_operation(uuid,text,text) to authenticated;
 grant execute on function public.nightfall_join_operation(text) to authenticated;
 grant execute on function public.nightfall_create_operation_npc(uuid,text,text,text,integer,integer) to authenticated;
+revoke all on function public.nightfall_is_operation_member(uuid) from public, anon;
+revoke all on function public.nightfall_is_operation_admin(uuid) from public, anon;
+revoke all on function public.nightfall_create_operation(uuid,text,text) from public, anon;
+revoke all on function public.nightfall_join_operation(text) from public, anon;
+revoke all on function public.nightfall_create_operation_npc(uuid,text,text,text,integer,integer) from public, anon;
+grant execute on function public.nightfall_is_operation_member(uuid) to authenticated;
+grant execute on function public.nightfall_is_operation_admin(uuid) to authenticated;
 
 -- Enable realtime for room chat and NPC/map updates without duplicating publication entries.
 do $$
