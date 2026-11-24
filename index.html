@@ -12,6 +12,9 @@
 .authbox{width:min(460px,100%);background:#101916;border:1px solid #35513d;border-radius:10px;padding:24px;box-shadow:0 20px 80px #0009}
 .authbox h1{letter-spacing:4px;color:#a8ff7f;margin:0}.authbox .field{margin:6px 0 12px}.authbox button{margin:4px 4px 4px 0}
 #appShell{display:none}#teamBar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+
+.ops-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px}.ops-list{display:flex;flex-direction:column;gap:8px}.op-card{width:100%;text-align:left;background:#0a120d;border:1px solid var(--line);padding:12px}.op-card.active{border-color:var(--green);background:#18281d}.op-workspace{min-width:0}.ops-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.ops-tab.active{background:#294331;border-color:var(--green)}.ops-chat{height:300px;overflow:auto;background:#080e0b;border:1px solid var(--line);padding:12px;border-radius:5px}.npc-card{border:1px solid #38513e;border-left:3px solid var(--green);padding:10px;margin:8px 0;background:#0c1710;border-radius:4px}.npc-card.enemy{border-left-color:#e07878}.npc-card.asset{border-left-color:#7caeff}.npc-card.agent{border-left-color:#9cff72}.sim-map{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;background:#0a120d;padding:8px;border:1px solid var(--line);border-radius:6px;aspect-ratio:1.6/1;max-height:520px}.sim-cell{background:#14231a;border:1px solid #20382a;min-width:0;min-height:28px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#91a59a;position:relative}.sim-pin{font-weight:900;border-radius:3px;padding:2px 4px;background:#203b29;color:#a8ff7f}.sim-pin.enemy{background:#4b2424;color:#ffaaaa}.sim-pin.asset{background:#20334b;color:#a8caff}.sim-pin.agent{background:#244329;color:#baff9f}.ops-muted{font-size:11px;color:var(--muted)}
+@media(max-width:850px){.ops-layout{grid-template-columns:1fr}.sim-map{aspect-ratio:1/1}}
 </style>
 </head>
 <body>
@@ -25,7 +28,7 @@
 <div id="teamBar" style="padding:12px 22px 0"><span class="tag" id="teamLabel">NO TEAM SELECTED</span><input id="teamName" class="field" style="max-width:190px;margin:0" placeholder="New team name"><button id="createTeamBtn">Create team</button><input id="inviteCode" class="field" style="max-width:150px;margin:0" placeholder="Invite code"><button id="joinTeamBtn">Join team</button><button id="copyInviteBtn">Copy invite code</button><button id="logoutBtn">Log out</button></div><div class="layout"><aside>
 <button class="nav active" data-view="home"><span>▦</span> Overview</button>
 <button class="nav" data-view="mapview"><span>⌖</span> Operations Map</button>
-<button class="nav" data-view="missions"><span>▤</span> Mission Control</button>
+<button class="nav" data-view="missions"><span>▤</span> Mission Control</button>\n<button class="nav" data-view="operations"><span>◈</span> Operations</button>
 <button class="nav" data-view="comms"><span>◉</span> Agency Chat</button>
 <button class="nav" data-view="camera"><span>◐</span> NVG Camera</button>
 <button class="nav" data-view="photos"><span>▣</span> Photo Masking</button>
@@ -37,6 +40,16 @@
 <div class="panel span7"><h3>MISSION ACTIVITY</h3><div id="homeMissions"></div></div><div class="panel span5"><h3>COMMAND NOTICE</h3><p class="muted">Nightfall is your workspace. Add your own map marks, agent records and training scenarios. Data currently stays in this browser.</p><div class="notice">Location news opens in a separate tab using a public Google News search. Map marks are created by you.</div></div></div></section>
 <section id="mapview" class="view"><div class="eyebrow">Geospatial interface / 02</div><div class="heading">OPERATIONS MAP</div><div class="panel"><div class="split"><p class="muted small">Select a marker to view its briefing and related public news.</p><button id="locate">◎ Use my location</button></div><div id="map"></div><p class="small muted">Map data © OpenStreetMap contributors. Your location is only requested after you press the button; it is not saved or transmitted by Nightfall.</p></div></section>
 <section id="missions" class="view"><div class="eyebrow">Training scenarios / 03</div><div class="heading">MISSION CONTROL</div><div class="grid"><div class="panel span8"><div class="split"><h3>MISSION BOARD</h3><span class="tag">SIMULATION ONLY</span></div><div id="missionList"></div></div><div class="panel span4"><h3>CREATE TRAINING SCENARIO</h3><label class="small muted">Scenario title</label><input class="field" id="newMission" placeholder="e.g. Operation Papertrail"><label class="small muted">Training objective</label><textarea class="field" id="newObjective" rows="3" placeholder="A harmless puzzle or research task"></textarea><button id="addMission">+ Add scenario</button></div></div></section>
+<section id="operations" class="view"><div class="eyebrow">Private rooms / 08</div><div class="heading">OPERATIONS</div>
+<div class="grid"><div class="panel span12"><div class="row"><input class="field" id="operationName" style="max-width:220px;margin:0" placeholder="New operation name"><input class="field" id="operationDescription" style="max-width:260px;margin:0" placeholder="Short description"><button id="createOperationBtn">＋ Create operation</button><input class="field" id="operationInviteCode" style="max-width:160px;margin:0" placeholder="Operation invite code"><button id="joinOperationBtn">Join</button></div><p class="ops-muted">Each operation has its own members, chat, NPC records and fictional simulation map. Only invited operation members can access it.</p></div>
+<div class="panel span12"><div class="ops-layout"><div><div class="split"><h3>YOUR OPERATIONS</h3><span class="tag">PRIVATE</span></div><div id="operationList" class="ops-list"><p class="muted">Create or join an operation.</p></div></div>
+<div class="op-workspace"><div id="operationEmpty" class="notice">Select an operation to open its private room.</div><div id="operationRoom" class="hide"><div class="split"><div><div class="eyebrow">Private operation room</div><h2 id="activeOperationName" style="margin:3px 0"></h2><div id="activeOperationDescription" class="ops-muted"></div></div><span class="tag">MEMBERS ONLY</span></div><div class="row" style="margin-top:8px"><span class="tag" id="activeOperationInvite"></span><button id="copyOperationInviteBtn">Copy invite</button></div>
+<div class="ops-tabs"><button class="ops-tab active" data-op-tab="chat">Chat</button><button class="ops-tab" data-op-tab="map">Map</button><button class="ops-tab" data-op-tab="briefing">NPC directory</button></div>
+<div id="operationChatPanel"><div id="operationChatFeed" class="ops-chat"></div><form id="operationChatForm" class="chatline" style="margin-top:8px"><input class="field" id="operationChatInput" placeholder="Message this operation..." autocomplete="off"><button>Send</button><button type="button" id="openNpcComposerBtn">＋ NPC</button></form>
+<div id="npcComposer" class="panel hide" style="margin-top:10px"><h3>CREATE SIMULATION NPC</h3><div class="row"><select class="field" id="npcCategory" style="max-width:150px"><option value="agent">Agent</option><option value="enemy">Enemy</option><option value="asset">Asset</option></select><input class="field" id="npcCallsign" style="max-width:220px" placeholder="Call sign / NPC name"></div><textarea class="field" id="npcDescription" rows="2" placeholder="Fictional character or asset description"></textarea><div class="row"><label class="ops-muted">Map column <input class="field" id="npcMapX" type="number" min="1" max="10" style="width:85px"></label><label class="ops-muted">Map row <input class="field" id="npcMapY" type="number" min="1" max="10" style="width:85px"></label><button type="button" id="createNpcBtn">Create NPC in chat</button><button type="button" id="cancelNpcBtn">Cancel</button></div><p class="ops-muted">Map coordinates are fictional grid positions, not real-world locations.</p></div></div>
+<div id="operationMapPanel" class="hide"><div class="split"><h3>FICTIONAL SIMULATION MAP</h3><span class="tag">10 × 10 GRID</span></div><div id="operationMap" class="sim-map"></div><p class="ops-muted">NPC markers appear here when you give them a grid column and row. No real-world coordinates or live tracking.</p></div>
+<div id="operationBriefingPanel" class="hide"><div class="split"><h3>NPC DIRECTORY</h3><span class="tag">USER-CREATED</span></div><div id="operationNpcList"><p class="muted">No NPCs created in this operation.</p></div></div>
+</div></div></div></div></div></section>
 <section id="comms" class="view"><div class="eyebrow">Communications / 04</div><div class="heading">AGENCY CHAT</div><div class="grid"><div class="panel span8"><div class="split"><h3># GENERAL CHANNEL</h3><span class="tag">LOCAL DEMO</span></div><div class="feed" id="chatFeed"><div class="msg"><b>SYSTEM</b><div>Chat is not connected yet. Real multi-user messaging requires the backend setup.</div></div></div><form id="chatForm" class="chatline"><input class="field" id="chatInput" placeholder="Write a demo message..." autocomplete="off"><button>Send</button></form></div><div class="panel span4"><h3>CHANNEL DIRECTORY</h3><div class="notice">Messaging is not enabled yet. It will be connected after real user accounts and a shared database are configured.</div></div></div></section>
 <section id="camera" class="view"><div class="eyebrow">Optical effects / 05</div><div class="heading">NVG CAMERA</div><div class="grid"><div class="panel span8"><div class="preview"><video id="video" class="camera greenfx" autoplay playsinline muted></video><div class="scan"></div></div><canvas id="camCanvas" class="hide"></canvas><div class="row" style="margin-top:12px"><button id="startCam">Enable camera</button><button id="stopCam">Stop camera</button><button id="snapCam">Capture frame</button><label class="small muted"><input type="checkbox" id="toggleFx" checked> Green NVG effect</label></div><p id="camStatus" class="small muted">Camera is off. Browser permission is required. The filter is a visual effect, not actual night vision.</p></div><div class="panel span4"><h3>OPTICS PROFILE</h3><p class="muted">Simulated monochrome-green display, contrast boost and scanline overlay.</p><span class="tag">DIGITAL FILTER / NOT THERMAL</span><p class="small muted">Camera video is processed in the page. Nothing is uploaded by this feature.</p></div><div class="panel span12"><h3>CAPTURE</h3><img id="capture" class="camera hide" alt="Captured camera frame"><a id="captureLink" class="hide" download="nightfall-nvg-capture.png">Download captured frame</a></div></div></section>
 <section id="photos" class="view"><div class="eyebrow">Privacy utility / 06</div><div class="heading">PHOTO MASKING</div><div class="grid"><div class="panel span8"><h3>UPLOAD IMAGE & MASK FACES</h3><input type="file" id="photoFile" accept="image/*" class="field"><div class="notice">Face detection is not automatic. Add a black mask for each face yourself: click and drag over the face area. Review the result before downloading.</div><div id="photoStage" class="photo-wrap"></div><div class="row" style="margin-top:12px"><button id="addMask" disabled>＋ Add mask</button><button id="clearMasks" disabled>Clear masks</button><button id="savePhoto" disabled>Export masked photo</button></div></div><div class="panel span4"><h3>MASKING NOTES</h3><p class="muted">Masks are solid black rectangles. They are burned into the exported image, not just displayed as overlays.</p><p class="small muted">For stronger privacy, cover identifying details and inspect the exported file before sharing. Processing stays in this browser tab.</p></div></div></section>
@@ -107,6 +120,126 @@ renderAgents();
 // Replace the original demo map initializer when the map tab is first opened.
 document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='mapview'&&!window.nightfallMap)initMap()}));
 </script>
+
+
+<script>
+// NIGHTFALL OPERATIONS MODULE — operation-scoped chat and fictional NPC map.
+let nfOperations=[], nfActiveOperation=null, nfOperationChannels=[];
+let nfOperationSeen=new Set(), nfOperationNpcs=[];
+function nfOpEscape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function nfLoadOperations(){
+ if(!nfClient||!nfTeam||!nfUser)return;
+ const {data,error}=await nfClient.from('operations').select('id,name,description,invite_code,created_at').eq('team_id',nfTeam.id).order('created_at',{ascending:false});
+ if(error){$('operationList').innerHTML='<p class="muted">Operations setup needed: run the new Supabase migration.</p>';return;}
+ nfOperations=data||[];nfRenderOperationList();
+ if(nfActiveOperation && !nfOperations.some(o=>o.id===nfActiveOperation.id)){nfActiveOperation=null;nfShowOperationEmpty();}
+}
+function nfRenderOperationList(){
+ const host=$('operationList');
+ if(!nfOperations.length){host.innerHTML='<p class="muted">No operations yet. Create one or join with an invite code.</p>';return;}
+ host.innerHTML=nfOperations.map(o=>'<button class="op-card '+(nfActiveOperation?.id===o.id?'active':'')+'" data-open-operation="'+o.id+'"><b>'+nfOpEscape(o.name)+'</b><div class="ops-muted">'+nfOpEscape(o.description||'Private operation room')+'</div></button>').join('');
+ host.querySelectorAll('[data-open-operation]').forEach(b=>b.onclick=()=>nfOpenOperation(b.dataset.openOperation));
+}
+function nfShowOperationEmpty(){$('operationEmpty').classList.remove('hide');$('operationRoom').classList.add('hide');}
+async function nfOpenOperation(id){
+ const op=nfOperations.find(o=>o.id===id);if(!op)return;
+ nfActiveOperation=op;nfOperationSeen.clear();
+ $('operationEmpty').classList.add('hide');$('operationRoom').classList.remove('hide');
+ $('activeOperationName').textContent=op.name;$('activeOperationDescription').textContent=op.description||'Private operation room';
+ $('activeOperationInvite').textContent='INVITE: '+op.invite_code;
+ nfRenderOperationList();
+ await nfLoadOperationChat();await nfLoadOperationNpcs();nfSubscribeOperation();
+}
+async function nfLoadOperationChat(){
+ $('operationChatFeed').innerHTML='';nfOperationSeen.clear();
+ const {data,error}=await nfClient.from('operation_messages').select('*').eq('operation_id',nfActiveOperation.id).order('created_at',{ascending:true}).limit(150);
+ if(error){$('operationChatFeed').textContent='Could not load this operation chat: '+error.message;return;}
+ (data||[]).forEach(nfRenderOperationMessage);
+}
+function nfRenderOperationMessage(m){
+ if(nfOperationSeen.has(m.id))return;nfOperationSeen.add(m.id);
+ const wrap=document.createElement('div');wrap.className='msg';
+ const head=document.createElement('b');head.textContent=m.sender_label||'MEMBER';
+ const time=document.createElement('time');time.textContent=' '+new Date(m.created_at).toLocaleTimeString();
+ const body=document.createElement('div');body.textContent=m.content;
+ wrap.append(head,time,body);
+ if(m.message_type==='npc'&&m.npc_id){const link=document.createElement('button');link.textContent='View NPC';link.style.marginTop='5px';link.onclick=()=>{document.querySelector('[data-op-tab="briefing"]').click();};wrap.append(link);}
+ $('operationChatFeed').append(wrap);$('operationChatFeed').scrollTop=$('operationChatFeed').scrollHeight;
+}
+async function nfLoadOperationNpcs(){
+ const {data,error}=await nfClient.from('operation_npcs').select('*').eq('operation_id',nfActiveOperation.id).order('created_at',{ascending:false});
+ if(error){$('operationNpcList').textContent='NPC directory unavailable: '+error.message;return;}
+ nfOperationNpcs=data||[];nfRenderOperationNpcs();
+}
+function nfRenderOperationNpcs(){
+ const host=$('operationNpcList');
+ if(!nfOperationNpcs.length)host.innerHTML='<p class="muted">No NPCs created in this operation yet. Use + NPC in chat.</p>';
+ else host.innerHTML=nfOperationNpcs.map(n=>'<div class="npc-card '+n.category+'"><div class="split"><b>'+nfOpEscape(n.callsign)+'</b><span class="tag">'+nfOpEscape(n.category.toUpperCase())+'</span></div><p class="ops-muted">'+nfOpEscape(n.description||'No description')+'</p><div class="ops-muted">'+(n.map_x&&n.map_y?'GRID '+n.map_x+','+n.map_y:'No map position')+'</div></div>').join('');
+ nfRenderOperationMap();
+}
+function nfRenderOperationMap(){
+ const board=$('operationMap');if(!board)return;board.innerHTML='';
+ const byCell={};nfOperationNpcs.forEach(n=>{if(n.map_x&&n.map_y){const k=n.map_x+','+n.map_y;(byCell[k] ||= []).push(n)}});
+ for(let y=1;y<=10;y++)for(let x=1;x<=10;x++){
+  const cell=document.createElement('div');cell.className='sim-cell';
+  (byCell[x+','+y]||[]).forEach(n=>{const pin=document.createElement('span');pin.className='sim-pin '+n.category;pin.textContent=n.category==='enemy'?'E':n.category==='asset'?'A':'G';pin.title=n.callsign;cell.append(pin)});
+  board.append(cell);
+ }
+}
+function nfSubscribeOperation(){
+ nfOperationChannels.forEach(c=>nfClient.removeChannel(c));nfOperationChannels=[];
+ const id=nfActiveOperation.id;
+ const chat=nfClient.channel('nightfall-operation-chat-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'operation_messages',filter:'operation_id=eq.'+id},p=>nfRenderOperationMessage(p.new)).subscribe();
+ const npcs=nfClient.channel('nightfall-operation-npcs-'+id).on('postgres_changes',{event:'*',schema:'public',table:'operation_npcs',filter:'operation_id=eq.'+id},()=>nfLoadOperationNpcs()).subscribe();
+ nfOperationChannels=[chat,npcs];
+}
+$('createOperationBtn').onclick=async()=>{
+ if(!nfClient||!nfTeam)return alert('Log in and select a team first.');
+ const name=$('operationName').value.trim(),description=$('operationDescription').value.trim();
+ if(name.length<2)return alert('Enter an operation name with at least 2 characters.');
+ const {data,error}=await nfClient.rpc('nightfall_create_operation',{p_team_id:nfTeam.id,p_name:name,p_description:description});
+ if(error)return alert('Could not create operation: '+error.message);
+ $('operationName').value='';$('operationDescription').value='';await nfLoadOperations();
+ if(data?.id){alert('Operation created. Invite code: '+data.invite_code);await nfOpenOperation(data.id);}
+};
+$('joinOperationBtn').onclick=async()=>{
+ if(!nfClient||!nfTeam)return alert('Log in and join a team first.');
+ const code=$('operationInviteCode').value.trim().toUpperCase();if(!code)return alert('Enter an operation invite code.');
+ const {data,error}=await nfClient.rpc('nightfall_join_operation',{p_code:code});
+ if(error)return alert('Could not join operation: '+error.message);
+ $('operationInviteCode').value='';await nfLoadOperations();if(data?.id)await nfOpenOperation(data.id);
+};
+$('copyOperationInviteBtn').onclick=()=>{
+ if(!nfActiveOperation)return;
+ navigator.clipboard.writeText(nfActiveOperation.invite_code).then(()=>alert('Operation invite code copied.')).catch(()=>alert('Invite code: '+nfActiveOperation.invite_code));
+};
+document.querySelectorAll('[data-op-tab]').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('[data-op-tab]').forEach(x=>x.classList.toggle('active',x===b));
+ $('operationChatPanel').classList.toggle('hide',b.dataset.opTab!=='chat');
+ $('operationMapPanel').classList.toggle('hide',b.dataset.opTab!=='map');
+ $('operationBriefingPanel').classList.toggle('hide',b.dataset.opTab!=='briefing');
+ if(b.dataset.opTab==='map')nfRenderOperationMap();
+});
+$('operationChatForm').onsubmit=async e=>{
+ e.preventDefault();if(!nfActiveOperation)return;
+ const content=$('operationChatInput').value.trim();if(!content)return;
+ const {error}=await nfClient.from('operation_messages').insert({operation_id:nfActiveOperation.id,sender_id:nfUser.id,sender_label:nfUser.email||'MEMBER',content,message_type:'text'});
+ if(error)alert('Message not sent: '+error.message);else $('operationChatInput').value='';
+};
+$('openNpcComposerBtn').onclick=()=>{if(!nfActiveOperation)return alert('Open an operation first.');$('npcComposer').classList.toggle('hide');};
+$('cancelNpcBtn').onclick=()=>$('npcComposer').classList.add('hide');
+$('createNpcBtn').onclick=async()=>{
+ if(!nfActiveOperation)return;
+ const category=$('npcCategory').value,callsign=$('npcCallsign').value.trim(),description=$('npcDescription').value.trim();
+ const x=$('npcMapX').value?Number($('npcMapX').value):null,y=$('npcMapY').value?Number($('npcMapY').value):null;
+ if(!callsign)return alert('Enter a call sign or NPC name.');
+ if((x===null)!==(y===null))return alert('Enter both map column and row, or leave both blank.');
+ if(x!==null&&(!Number.isInteger(x)||x<1||x>10||!Number.isInteger(y)||y<1||y>10))return alert('Map positions must be whole numbers from 1 to 10.');
+ const {error}=await nfClient.rpc('nightfall_create_operation_npc',{p_operation_id:nfActiveOperation.id,p_category:category,p_callsign:callsign,p_description:description,p_map_x:x,p_map_y:y});
+ if(error)return alert('NPC creation failed: '+error.message);
+ $('npcCallsign').value='';$('npcDescription').value='';$('npcMapX').value='';$('npcMapY').value='';$('npcComposer').classList.add('hide');
+ await nfLoadOperationNpcs();await nfLoadOperationChat();
+};
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
