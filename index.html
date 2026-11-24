@@ -297,6 +297,7 @@ document.getElementById('logoutBtn').onclick=async()=>{if(nfClient)await nfClien
 async function nfLoadWorkspace(){
  if(!nfTeam)return;
  await nfLoadChat();
+ await nfLoadOperations();
  if(nfChatChannel)nfClient.removeChannel(nfChatChannel);
  nfChatChannel=nfClient.channel('nightfall-chat-'+nfTeam.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'chat_messages',filter:'team_id=eq.'+nfTeam.id},payload=>nfRenderChatMessage(payload.new)).subscribe();
  const {data,error}=await nfClient.from('team_workspace').select('data').eq('team_id',nfTeam.id).maybeSingle();
